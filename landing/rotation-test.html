@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotation Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .scenario {
+            display: none;
+        }
+        
+        .scenario.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .scenario-dot {
+            transition: all 0.3s;
+        }
+        
+        .scenario-dot.active {
+            background-color: white !important;
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-purple-600 to-pink-600 min-h-screen flex items-center justify-center p-8">
+    
+    <div class="max-w-4xl w-full">
+        <!-- Terminal Window -->
+        <div class="bg-gray-900 rounded-lg overflow-hidden shadow-2xl">
+            <div class="bg-gray-800 px-4 py-3 flex gap-2">
+                <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+            </div>
+            
+            <!-- Scenario 1 -->
+            <div class="scenario active p-8 text-green-400 font-mono text-sm" data-scenario="1">
+                <div class="mb-4">
+                    <span class="text-purple-400">You:</span>
+                    <span class="text-white ml-2">Optimize all 347 products for SEO</span>
+                </div>
+                <div class="bg-gray-800 p-4 rounded text-white space-y-2">
+                    <div>✓ Meta titles optimized</div>
+                    <div>✓ Descriptions rewritten</div>
+                    <div>✓ 1,891 image alt texts generated</div>
+                    <div class="text-green-400 pt-2">⏱️ 8 minutes</div>
+                    <div class="text-yellow-400">💰 Saved: 2-3 weeks</div>
+                </div>
+            </div>
+            
+            <!-- Scenario 2 -->
+            <div class="scenario p-8 text-green-400 font-mono text-sm" data-scenario="2">
+                <div class="mb-4">
+                    <span class="text-purple-400">You:</span>
+                    <span class="text-white ml-2">Clone store for Germany with translation</span>
+                </div>
+                <div class="bg-gray-800 p-4 rounded text-white space-y-2">
+                    <div>✓ 347 products translated (DE)</div>
+                    <div>✓ Pricing converted to EUR</div>
+                    <div>✓ Tax rules configured</div>
+                    <div class="text-green-400 pt-2">⏱️ 34 minutes</div>
+                    <div class="text-yellow-400">💰 Saved: 3-4 weeks + €5k</div>
+                </div>
+            </div>
+            
+            <!-- Scenario 3 -->
+            <div class="scenario p-8 text-green-400 font-mono text-sm" data-scenario="3">
+                <div class="mb-4">
+                    <span class="text-purple-400">You:</span>
+                    <span class="text-white ml-2">Sync Shopify + Pipedrive + Katana for profit analysis</span>
+                </div>
+                <div class="bg-gray-800 p-4 rounded text-white space-y-2">
+                    <div>✓ 2,847 orders synced</div>
+                    <div>✓ Margins calculated by SKU</div>
+                    <div>✓ 12 products flagged below target</div>
+                    <div class="text-green-400 pt-2">⏱️ 11 minutes</div>
+                    <div class="text-yellow-400">💰 Saved: 1-2 weeks CFO time</div>
+                </div>
+            </div>
+            
+            <!-- Scenario 4 -->
+            <div class="scenario p-8 text-green-400 font-mono text-sm" data-scenario="4">
+                <div class="mb-4">
+                    <span class="text-purple-400">You:</span>
+                    <span class="text-white ml-2">Update winter collection pricing intelligently</span>
+                </div>
+                <div class="bg-gray-800 p-4 rounded text-white space-y-2">
+                    <div>✓ 89 products analyzed</div>
+                    <div>✓ Sales velocity checked</div>
+                    <div>✓ Pricing recommendations ready</div>
+                    <div class="text-green-400 pt-2">⏱️ 6 minutes</div>
+                    <div class="text-yellow-400">💰 Impact: +€12,400/month</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Indicator Dots -->
+        <div class="flex justify-center gap-3 mt-6">
+            <button class="scenario-dot w-3 h-3 bg-white/50 rounded-full cursor-pointer hover:bg-white/80 transition active" data-goto="1"></button>
+            <button class="scenario-dot w-3 h-3 bg-white/50 rounded-full cursor-pointer hover:bg-white/80 transition" data-goto="2"></button>
+            <button class="scenario-dot w-3 h-3 bg-white/50 rounded-full cursor-pointer hover:bg-white/80 transition" data-goto="3"></button>
+            <button class="scenario-dot w-3 h-3 bg-white/50 rounded-full cursor-pointer hover:bg-white/80 transition" data-goto="4"></button>
+        </div>
+        
+        <!-- Debug Info -->
+        <div class="text-white text-center mt-8">
+            <p class="text-sm opacity-75">Auto-rotating every 5 seconds • Click dots to jump</p>
+            <p class="text-xs opacity-50 mt-2">Current scenario: <span id="current-scenario">1</span></p>
+        </div>
+    </div>
+
+    <script>
+        let currentScenario = 1;
+        const totalScenarios = 4;
+        
+        function showScenario(num) {
+            console.log('Showing scenario:', num);
+            
+            // Hide all scenarios
+            document.querySelectorAll('.scenario').forEach(s => {
+                s.classList.remove('active');
+            });
+            
+            // Remove active from all dots
+            document.querySelectorAll('.scenario-dot').forEach(d => {
+                d.classList.remove('active');
+            });
+            
+            // Show selected scenario
+            const targetScenario = document.querySelector(`.scenario[data-scenario="${num}"]`);
+            const targetDot = document.querySelector(`.scenario-dot[data-goto="${num}"]`);
+            
+            if (targetScenario) {
+                targetScenario.classList.add('active');
+            }
+            
+            if (targetDot) {
+                targetDot.classList.add('active');
+            }
+            
+            // Update debug text
+            document.getElementById('current-scenario').textContent = num;
+            
+            currentScenario = num;
+        }
+        
+        // Auto-rotate every 5 seconds
+        setInterval(() => {
+            currentScenario = (currentScenario % totalScenarios) + 1;
+            showScenario(currentScenario);
+        }, 5000);
+        
+        // Click handlers for dots
+        document.querySelectorAll('.scenario-dot').forEach(dot => {
+            dot.addEventListener('click', () => {
+                const scenarioNum = parseInt(dot.getAttribute('data-goto'));
+                showScenario(scenarioNum);
+            });
+        });
+        
+        console.log('Rotation initialized. Should rotate every 5 seconds.');
+    </script>
+</body>
+</html>
