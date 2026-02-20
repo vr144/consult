@@ -282,6 +282,26 @@
                                 <div class="text-yellow-400">💰 Potential: Recover 10-15% = $8-13k</div>
                             </div>
                         </div>
+                        
+                        <!-- Scenario 7: Reorder Agent (AI Agent example) -->
+                        <div class="scenario p-6 text-sm text-green-400 space-y-3" data-scenario="7">
+                            <div>
+                                <span class="text-purple-400">Agent:</span>
+                                <span class="text-white ml-2">Reorder Agent monitors stock and creates purchase orders</span>
+                            </div>
+                            <div class="text-gray-400">
+                                <span class="pulse-dot inline-block w-2 h-2 bg-green-400 rounded-full mr-2"></span>
+                                Monitoring inventory levels...
+                            </div>
+                            <div class="bg-gray-900 p-4 rounded text-white space-y-2 text-xs">
+                                <div>✓ Tracked 300 SKUs across locations</div>
+                                <div>✓ Identified 23 SKUs below reorder point</div>
+                                <div>✓ Generated 4 supplier POs (preview)</div>
+                                <div>✓ Awaiting approval before submit</div>
+                                <div class="text-green-400 pt-2">⏱️ Completed in 4 minutes (agent run)</div>
+                                <div class="text-yellow-400">💰 Prevent stockouts → save lost sales</div>
+                            </div>
+                        </div>
                     </div>
                     
                     <!-- Scenario indicator dots -->
@@ -292,6 +312,7 @@
                         <button class="scenario-dot w-2 h-2 bg-white/50 rounded-full cursor-pointer hover:bg-white/80 transition" data-goto="4"></button>
                         <button class="scenario-dot w-2 h-2 bg-white/50 rounded-full cursor-pointer hover:bg-white/80 transition" data-goto="5"></button>
                         <button class="scenario-dot w-2 h-2 bg-white/50 rounded-full cursor-pointer hover:bg-white/80 transition" data-goto="6"></button>
+                        <button class="scenario-dot w-2 h-2 bg-white/50 rounded-full cursor-pointer hover:bg-white/80 transition" data-goto="7"></button>
                     </div>
                 </div>
             </div>
@@ -540,6 +561,37 @@
                     </div>
                 </div>
                 
+                <!-- AI Agents -->
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                        <span class="bg-purple-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm mr-3">AI</span>
+                        AI Agents — Automate & Delegate
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-blue-200">
+                            <div class="text-xs text-blue-600 font-bold mb-1">Agent · Reorder</div>
+                            <div class="font-semibold text-gray-900 mb-2">📦 Reorder Agent</div>
+                            <div class="text-sm text-gray-600">Monitors inventory, prepares purchase orders, and notifies you for approval. Read-first by default.</div>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-blue-200">
+                            <div class="text-xs text-blue-600 font-bold mb-1">Agent · Support</div>
+                            <div class="font-semibold text-gray-900 mb-2">💬 Support Agent</div>
+                            <div class="text-sm text-gray-600">Auto-drafts responses to common customer queries and queues for human approval when needed.</div>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-blue-200">
+                            <div class="text-xs text-blue-600 font-bold mb-1">Agent · Pricing</div>
+                            <div class="font-semibold text-gray-900 mb-2">💸 Pricing Agent</div>
+                            <div class="text-sm text-gray-600">Suggests price updates based on velocity and competitor data; previews revenue impact before applying.</div>
+                        </div>
+                        <div class="bg-white p-5 rounded-xl shadow-sm border border-blue-200">
+                            <div class="text-xs text-blue-600 font-bold mb-1">Agent · Scheduler</div>
+                            <div class="font-semibold text-gray-900 mb-2">⏰ Scheduler Agent</div>
+                            <div class="text-sm text-gray-600">Runs scheduled jobs (daily reports, nightly syncs) and provides audit logs for every action.</div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-sm text-gray-600">Agents run with safety: read-first by default, approval prompts for writes, full audit trail, and rollback support.</div>
+                </div>
+
                 <!-- Operations & Inventory -->
                 <div>
                     <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
@@ -923,7 +975,7 @@
     <script>
         // Rotating scenario functionality
         let currentScenario = 1;
-        const totalScenarios = 6;
+        const totalScenarios = 7;
         
         function showScenario(num) {
             // Hide all scenarios
